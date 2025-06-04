@@ -4,7 +4,6 @@ import com.example.demoexternalservice.modules.external.model.KeyValuePair;
 import com.example.demoexternalservice.modules.external.repository.KeyValueRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class ExternalService {
             KeyValuePair keyValuePair = KeyValuePair.builder()
                     .rowId(rowId)
                     .tableName(tableName)
-                    .key(entry.getKey())
+                    .field(entry.getKey())
                     .value(entry.getValue())
                     .build();
             keyValueRepository.save(keyValuePair);
@@ -30,6 +29,6 @@ public class ExternalService {
 
     public Map<String, String> getExternal(String tableName, String rowId) {
         return keyValueRepository.findByRowIdAndTableName(rowId, tableName).stream()
-                .collect(Collectors.toMap(KeyValuePair::getKey, KeyValuePair::getValue));
+                .collect(Collectors.toMap(KeyValuePair::getField, KeyValuePair::getValue));
     }
 }
