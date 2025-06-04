@@ -1,4 +1,4 @@
-package com.example.demoexternalservice.repository.model;
+package com.example.demoexternalservice.modules.user.model;
 
 import lombok.Data;
 
