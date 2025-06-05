@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/external")
+@RequestMapping("/api/v1/external")
 public class ExternalController {
     private final ExternalService externalService;
 
