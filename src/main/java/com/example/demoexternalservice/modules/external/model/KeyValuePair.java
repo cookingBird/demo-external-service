@@ -22,11 +22,11 @@ public class KeyValuePair {
     @GeneratedValue
     private Long id;
 
-    private String rowId;
+    private String entityKey;
 
     private String field;
 
     private String value;
 
-    private String tableName;
+    private String modelKey;
 }

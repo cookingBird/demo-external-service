@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/api/v1/configure")
+@RequestMapping("/api/v1/external/configs")
 public class ConfigureController {
     @Resource
     private ConfigService configService;
@@ -35,5 +35,10 @@ public class ConfigureController {
     @PutMapping("/{id}/patch")
     public Configure patch(@PathVariable("id") Long id, @RequestBody Configure configure) {
         return configService.patchConfigure(id, configure);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        configService.deleteById(id);
     }
 }

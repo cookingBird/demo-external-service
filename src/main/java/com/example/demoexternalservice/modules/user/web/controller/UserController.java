@@ -1,35 +1,36 @@
 package com.example.demoexternalservice.modules.user.web.controller;
 
 import com.example.demoexternalservice.modules.user.model.User;
-import com.example.demoexternalservice.modules.user.repository.UserRepository;
+import com.example.demoexternalservice.modules.user.service.UserServiceImpl;
 import com.example.demoexternalservice.modules.user.web.request.UserCreate;
-import org.springframework.stereotype.Controller;
+import com.example.demoexternalservice.modules.user.web.response.UserResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserServiceImpl userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElse(null);
+        return userService.findAllById(id);
     }
 
     @PostMapping("/")
-    public User saveUser(@RequestBody UserCreate user) {
-        return userRepository.save(
+    public Long saveUser(@RequestBody UserCreate userCreate) {
+        return userService.save(
                 User.builder()
-                        .name(user.getName())
-                        .email(user.getEmail())
-                        .build()
+                        .name(userCreate.getName())
+                        .email(userCreate.getEmail())
+                        .build(),
+                userCreate.getRest()
         );
     }
 }

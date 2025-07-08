@@ -1,14 +1,10 @@
 package com.example.demoexternalservice.modules.config.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.demoexternalservice.modules.config.enums.Enable;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "config")
 @Entity
@@ -16,14 +12,15 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Configure {
+@EqualsAndHashCode(callSuper = true)
+public class Configure extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String tableName;
+    private String modelName;
 
-    private String name;
+    private String fieldName;
 
     private String type;
 
@@ -32,4 +29,7 @@ public class Configure {
     private String fallback;
 
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private Enable enable = Enable.TRUE;
 }
